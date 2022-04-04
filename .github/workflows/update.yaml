@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 20
 
       - name: Update JSON file
         shell: bash
@@ -35,7 +37,7 @@ jobs:
       - name: Update "last change" badge
         shell: bash
         run: >
-          commits="$(git log --format='%h:%s' --max-count=100)";
+          commits="$(git log --format='%h:%s' --max-count=20)";
           echo "commits $commits";
           commit="$(<<<"$commits" awk -F ':' '$2 == "Update data" { print $1; exit 0; }')";
           echo "commit $commit";
