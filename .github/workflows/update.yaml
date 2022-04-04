@@ -49,7 +49,7 @@ jobs:
       - name: Update "last change" commit hash
         shell: bash
         run: >
-          commit="$(git log --format='%h:%s' --max-count=100 | gawk -F ':' '!c && $2 == "Update data" { c=$1 } END { print c }')" || exit 0;
+          commit="$(git log --format='%h:%s' --max-count=100 | awk -F ':' '$2 == "Update data" { print $1; exit 0 }')";
           sed -i "5s/%%COMMIT%%/$commit/" README.md
 
       - name: Commit and Push Changes
