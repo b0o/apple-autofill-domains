@@ -37,8 +37,7 @@ jobs:
       - name: Update "last change" badge
         shell: bash
         run: >
-          commits="$(git log --format='%h:%s' --max-count=20)";
-          commit="$(<<<"$commits" awk -F ':' '$2 == "Update data" { print $1; exit 0; }')";
+          commit="$(git log --format='%h:%s' --max-count=20 | awk -F ':' '$2 == "Update data" { print $1; exit 0; }')";
           timestamp="$(git show --quiet --format=format:%ct "$commit")";
           awk -v line=5 -v str="[![Last change: $(date -u --date=@$timestamp)](https://img.shields.io/date/${timestamp}?color=orange&label=last%20change)](https://github.com/b0o/apple-autofill-domains/commit/$commit)" 'FNR == line { print str; next } { print $0 }' README.md > README.md.new && mv README.md.new README.md
 
