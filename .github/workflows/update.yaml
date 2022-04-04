@@ -17,7 +17,7 @@ jobs:
 
       - name: Update JSON file
         shell: bash
-        run: curl "https://cdn.smoot.apple.com/static/autofill_tld_whitelist_url" > autofill_tld_whitelist_url.json
+        run: curl "https://cdn.smoot.apple.com/static/autofill_tld_whitelist_url" | jq > autofill_tld_whitelist_url.json
 
       - name: Update "last check" badge
         shell: bash
